@@ -10,7 +10,7 @@
     <com.example.material.view.EquilateralImageView
         android:id="@+id/image_view"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="match_parent"
         android:layout_gravity="center"
         android:contentDescription="@string/photo_of_the_day_stub"
         app:srcCompat="@drawable/abc_vector_test"
