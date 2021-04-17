@@ -13,6 +13,7 @@ class PictureOfTheDayViewModel(
     private val retrofitImpl: PODRetrofitImpl = PODRetrofitImpl()
 ) : ViewModel() {
     fun getData(): LiveData<PictureOfTheDayData> {
+        sendServerRequest()
         return liveDataForViewToObserve
     }
 
