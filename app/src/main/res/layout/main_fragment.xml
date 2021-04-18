@@ -38,7 +38,6 @@
                     android:inputType="text" />
             </com.google.android.material.textfield.TextInputLayout>
 
-
             <com.example.material.view.EquilateralImageView
                 android:id="@+id/image_view"
                 android:layout_width="match_parent"
@@ -51,8 +50,19 @@
                 app:layout_constraintTop_toTopOf="parent"
                 app:srcCompat="@drawable/ic_no_photo_vector"
                 tools:ignore="VectorDrawableCompat" />
+
         </androidx.constraintlayout.widget.ConstraintLayout>
     </androidx.core.widget.NestedScrollView>
+
+    <com.google.android.material.chip.Chip
+        android:id="@+id/hd_chips"
+        style="@style/Widget.MaterialComponents.Chip.Choice"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="HD"
+        app:rippleColor="@android:color/holo_orange_dark"
+        app:layout_anchor="@id/image_view"
+        app:layout_anchorGravity="bottom"/>
 
     <include layout="@layout/bottom_sheet_layout" />
 

@@ -50,38 +50,44 @@ class PictureOfTheDayFragment : Fragment() {
                 data = Uri.parse("https://en.wikipedia.org/wiki/${input_edit_text.text.toString()}")
             })
         }
+        hd_chips.setOnClickListener {
+            if (!isHD) {
+                loadImage(hdUrl)
+                isHD = true
+            } else {
+                loadImage(url)
+                isHD = false
+            }
+        }
+
         setBottomAppBar(view)
     }
 
     private fun renderData(data: PictureOfTheDayData) {
         when (data) {
             is PictureOfTheDayData.Success -> {
-                val serverResponseData: PODServerResponseData = data.serverResponseData
-                val url: String? = serverResponseData.url
+                serverResponseData = data.serverResponseData
+                url = serverResponseData!!.url
+                hdUrl = serverResponseData!!.hdurl
                 if (url.isNullOrEmpty()) {
                     toast("Empty link")
                 } else {
-                    image_view.load(url) {
-                        lifecycle(this@PictureOfTheDayFragment)
-                        error(R.drawable.ic_load_error_vector)
-                        placeholder(R.drawable.ic_no_photo_vector)
-
-                    }
+                    isHD = false
+                    loadImage(url)
                 }
 
-                val explanation: String? = serverResponseData.explanation
+                val explanation: String? = serverResponseData!!.explanation
                 if (explanation.isNullOrEmpty()) {
                     bottom_sheet_description.text = "Empty description"
                 } else {
                     bottom_sheet_description.text = explanation
                 }
-                val title: String? = serverResponseData.title
+                val title: String? = serverResponseData!!.title
                 if (title.isNullOrEmpty()) {
                     bottom_sheet_description_header.text = "No title"
                 } else {
                     bottom_sheet_description_header.text = title
                 }
-
             }
             is PictureOfTheDayData.Loading -> {
 
@@ -89,6 +95,14 @@ class PictureOfTheDayFragment : Fragment() {
             is PictureOfTheDayData.Error -> {
                 toast(data.error.message)
             }
+        }
+    }
+
+    private fun loadImage(url: String?) {
+        image_view.load(url) {
+            lifecycle(this@PictureOfTheDayFragment)
+            error(R.drawable.ic_load_error_vector)
+            placeholder(R.drawable.ic_no_photo_vector)
         }
     }
 
@@ -170,6 +184,11 @@ class PictureOfTheDayFragment : Fragment() {
     companion object {
         fun newInstance() = PictureOfTheDayFragment()
         private var isMain = true
+        private var isHD = true
+
+        private var serverResponseData: PODServerResponseData? = null
+        private var url: String? = null
+        private var hdUrl: String? = null
     }
 
 }
