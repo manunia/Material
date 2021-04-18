@@ -17,6 +17,7 @@ import com.example.material.R
 import com.example.material.ui.chips.ChipsFragment
 import com.google.android.material.bottomappbar.BottomAppBar
 import com.google.android.material.bottomsheet.BottomSheetBehavior
+import kotlinx.android.synthetic.main.bottom_sheet_layout.*
 import kotlinx.android.synthetic.main.main_fragment.*
 
 class PictureOfTheDayFragment : Fragment() {
@@ -66,6 +67,19 @@ class PictureOfTheDayFragment : Fragment() {
                         placeholder(R.drawable.ic_no_photo_vector)
 
                     }
+                }
+
+                val explanation: String? = serverResponseData.explanation
+                if (explanation.isNullOrEmpty()) {
+                    bottom_sheet_description.text = "Empty description"
+                } else {
+                    bottom_sheet_description.text = explanation
+                }
+                val title: String? = serverResponseData.title
+                if (title.isNullOrEmpty()) {
+                    bottom_sheet_description_header.text = "No title"
+                } else {
+                    bottom_sheet_description_header.text = title
                 }
 
             }
