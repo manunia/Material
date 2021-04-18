@@ -14,11 +14,12 @@ import androidx.lifecycle.ViewModelProviders
 import coil.api.load
 import com.example.material.MainActivity
 import com.example.material.R
+import com.example.material.ui.chips.ChipsFragment
 import com.google.android.material.bottomappbar.BottomAppBar
 import com.google.android.material.bottomsheet.BottomSheetBehavior
 import kotlinx.android.synthetic.main.main_fragment.*
 
-class PictureOfTheDayFragment: Fragment() {
+class PictureOfTheDayFragment : Fragment() {
 
     private lateinit var bottomSheetBehavior: BottomSheetBehavior<ConstraintLayout>
 
@@ -36,7 +37,8 @@ class PictureOfTheDayFragment: Fragment() {
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
-        viewModel.getData().observe(this@PictureOfTheDayFragment, Observer<PictureOfTheDayData> { renderData(it) })
+        viewModel.getData()
+            .observe(this@PictureOfTheDayFragment, Observer<PictureOfTheDayData> { renderData(it) })
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -51,7 +53,7 @@ class PictureOfTheDayFragment: Fragment() {
     }
 
     private fun renderData(data: PictureOfTheDayData) {
-        when(data) {
+        when (data) {
             is PictureOfTheDayData.Success -> {
                 val serverResponseData: PODServerResponseData = data.serverResponseData
                 val url: String? = serverResponseData.url
@@ -77,7 +79,7 @@ class PictureOfTheDayFragment: Fragment() {
     }
 
     private fun Fragment.toast(string: String?) {
-        Toast.makeText(context,string,Toast.LENGTH_SHORT).apply {
+        Toast.makeText(context, string, Toast.LENGTH_SHORT).apply {
             setGravity(Gravity.BOTTOM, 0, 250)
             show()
         }
@@ -87,7 +89,8 @@ class PictureOfTheDayFragment: Fragment() {
         bottomSheetBehavior = BottomSheetBehavior.from(bottomSheet)
         bottomSheetBehavior.state = BottomSheetBehavior.STATE_COLLAPSED
 
-        bottomSheetBehavior.addBottomSheetCallback(object : BottomSheetBehavior.BottomSheetCallback() {
+        bottomSheetBehavior.addBottomSheetCallback(object :
+            BottomSheetBehavior.BottomSheetCallback() {
             override fun onSlide(bottomSheet: View, slideOffset: Float) {
                 toast("onSlide")
             }
@@ -114,11 +117,16 @@ class PictureOfTheDayFragment: Fragment() {
         when (item.itemId) {
             R.id.app_bar_fav -> toast("Favourite")
             R.id.app_bar_search -> toast("Search")
+            R.id.app_bar_settings ->
+                activity?.supportFragmentManager?.beginTransaction()?.add(
+                    R.id.container, ChipsFragment()
+                )?.addToBackStack(null)?.commit()
             android.R.id.home -> {
                 activity?.let {
-                    BottomNavDrawerFragment().show(it.supportFragmentManager,"tag")
+                    BottomNavDrawerFragment().show(it.supportFragmentManager, "tag")
                 }
             }
+
         }
         return super.onOptionsItemSelected(item)
     }
@@ -132,18 +140,17 @@ class PictureOfTheDayFragment: Fragment() {
             if (isMain) {
                 isMain = false
                 bottom_app_bar.navigationIcon = null
-                fab.setImageDrawable(ContextCompat.getDrawable(context,R.drawable.ic_back_fab))
+                fab.setImageDrawable(ContextCompat.getDrawable(context, R.drawable.ic_back_fab))
                 bottom_app_bar.replaceMenu(R.menu.menu_bottom_bar_other_screen)
             } else {
                 isMain = true
                 bottom_app_bar.navigationIcon =
-                    ContextCompat.getDrawable(context,R.drawable.ic_hamburger_menu_bottom_bar)
-                fab.setImageDrawable(ContextCompat.getDrawable(context,R.drawable.ic_plus_fab))
+                    ContextCompat.getDrawable(context, R.drawable.ic_hamburger_menu_bottom_bar)
+                fab.setImageDrawable(ContextCompat.getDrawable(context, R.drawable.ic_plus_fab))
                 bottom_app_bar.replaceMenu(R.menu.menu_bottom_bar)
             }
         }
     }
-
 
 
     companion object {
