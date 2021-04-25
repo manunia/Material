@@ -15,8 +15,54 @@
         <!-- Customize your theme here. -->
 
         <item name="textColorConnected">@color/purple_200</item>
-
     </style>
 
+    <style name="MarsTheme" parent="Theme.MaterialComponents.DayNight.NoActionBar">
+        <item name="colorPrimary">#F44336</item>
+        <item name="colorPrimaryVariant">#FF5722</item>
+        <item name="colorOnPrimary">#EFD6D6</item>
+        <!-- Secondary brand color. -->
+        <item name="colorSecondary">#B55F37</item>
+        <item name="colorSecondaryVariant">#9F5D30</item>
+        <item name="colorOnSecondary">#2B1717</item>
+        <!-- Status bar color. -->
+        <item name="android:statusBarColor" tools:targetApi="l">?attr/colorPrimaryVariant</item>
+        <item name="android:navigationBarColor">?attr/colorPrimary</item>
+        <item name="android:actionBarStyle">?attr/colorSecondary</item>
+        <item name="colorSurface">#B6B0AB</item>
+    </style>
+
+    <style name="EarthTheme" parent="Theme.MaterialComponents.DayNight.NoActionBar">
+        <item name="colorPrimary">#37AAF6</item>
+        <item name="colorPrimaryVariant">#419EEF</item>
+        <item name="colorOnPrimary">#D6E0EF</item>
+        <!-- Secondary brand color. -->
+        <item name="colorSecondary">#30B586</item>
+        <item name="colorSecondaryVariant">#5DBC87</item>
+        <item name="colorOnSecondary">#2B1717</item>
+        <!-- Status bar color. -->
+        <item name="android:statusBarColor" tools:targetApi="l">?attr/colorPrimaryVariant</item>
+        <item name="android:navigationBarColor">?attr/colorPrimary</item>
+        <item name="android:actionBarStyle">?attr/colorSecondary</item>
+        <item name="colorSurface">#A7BFD1</item>
+        <item name="android:colorBackground">#6DECAA</item>
+        <item name="android:textColor">#107551</item>
+    </style>
+
+    <style name="MoonTheme" parent="Theme.MaterialComponents.DayNight.NoActionBar">
+        <item name="colorPrimary">#3C3F42</item>
+        <item name="colorPrimaryVariant">#434A50</item>
+        <item name="colorOnPrimary">#D0D2D5</item>
+        <!-- Secondary brand color. -->
+        <item name="colorSecondary">#EAE478</item>
+        <item name="colorSecondaryVariant">#F3EF44</item>
+        <item name="colorOnSecondary">#2B1717</item>
+        <!-- Status bar color. -->
+        <item name="android:statusBarColor" tools:targetApi="l">?attr/colorPrimaryVariant</item>
+        <item name="android:navigationBarColor">?attr/colorPrimary</item>
+        <item name="android:actionBarStyle">?attr/colorSecondary</item>
+        <item name="colorSurface">#F8F3C61E</item>
+        <item name="android:colorBackground">#5E5C56</item>
+    </style>
 
 </resources>

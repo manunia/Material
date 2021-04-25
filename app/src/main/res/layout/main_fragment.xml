@@ -56,7 +56,6 @@
 
     <com.google.android.material.chip.Chip
         android:id="@+id/hd_chips"
-        style="@style/select_hd_chip"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="HD"

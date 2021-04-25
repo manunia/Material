@@ -9,12 +9,11 @@ import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
-import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.ViewModelProviders
 import coil.api.load
 import com.example.material.MainActivity
 import com.example.material.R
-import com.example.material.ui.chips.ChipsFragment
+import com.example.material.ui.chips.SettingsFragment
 import com.google.android.material.bottomappbar.BottomAppBar
 import com.google.android.material.bottomsheet.BottomSheetBehavior
 import kotlinx.android.synthetic.main.bottom_sheet_layout.*
@@ -147,7 +146,7 @@ class PictureOfTheDayFragment : Fragment() {
             R.id.app_bar_search -> toast("Search")
             R.id.app_bar_settings ->
                 activity?.supportFragmentManager?.beginTransaction()?.add(
-                    R.id.container, ChipsFragment()
+                    R.id.container, SettingsFragment.newInstance()
                 )?.addToBackStack(null)?.commit()
             android.R.id.home -> {
                 activity?.let {
