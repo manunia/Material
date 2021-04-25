@@ -20,21 +20,18 @@
 
         <com.google.android.material.chip.Chip
             android:id="@+id/mars_theme_chip"
-            style="@style/Widget.MaterialComponents.Chip.Choice"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Mars" />
 
         <com.google.android.material.chip.Chip
             android:id="@+id/earth_theme_chip"
-            style="@style/Widget.MaterialComponents.Chip.Choice"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Earth" />
 
         <com.google.android.material.chip.Chip
             android:id="@+id/moon_theme_chip"
-            style="@style/Widget.MaterialComponents.Chip.Choice"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Moon" />
