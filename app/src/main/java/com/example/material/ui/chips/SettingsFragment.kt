@@ -9,6 +9,9 @@ import android.widget.Toast
 import androidx.appcompat.view.ContextThemeWrapper
 import androidx.core.app.ActivityCompat.recreate
 import androidx.fragment.app.Fragment
+import com.example.material.EARTH_ID
+import com.example.material.MARS_ID
+import com.example.material.MOON_ID
 import com.example.material.R
 import kotlinx.android.synthetic.main.settings_fragment.*
 
@@ -18,6 +21,7 @@ const val THEME_RES_ID = "THEME_RES_ID"
 const val MARS = "MARS"
 const val EARTH = "EARTH"
 const val MOON = "MOON"
+
 
 class SettingsFragment : Fragment() {
 
@@ -39,35 +43,24 @@ class SettingsFragment : Fragment() {
         setSharedPref()
 
         mars_theme_chip.setOnClickListener {
-
             if (theme != MARS) {
-                requireContext().apply {
-                    setTheme(R.style.MarsTheme)
-                    saveTheme(MARS, R.style.MarsTheme)
-                    Toast.makeText(this, MARS, Toast.LENGTH_SHORT)
-                    recreate(requireActivity())
-                }
+                it.context?.setTheme(MARS_ID)
+                saveTheme(MARS, R.style.MarsTheme)
+                recreate(requireActivity())
             }
         }
         earth_theme_chip.setOnClickListener {
-
             if (theme != EARTH) {
-                requireContext().apply {
-                    setTheme(R.style.EarthTheme)
-                    saveTheme(EARTH, R.style.EarthTheme)
-                    Toast.makeText(this, EARTH, Toast.LENGTH_SHORT)
-                    recreate(requireActivity())
-                }
+                it.context?.setTheme(EARTH_ID)
+                saveTheme(EARTH, R.style.EarthTheme)
+                recreate(requireActivity())
             }
         }
         moon_theme_chip.setOnClickListener {
             if (theme != MOON) {
-                requireContext().apply {
-                    setTheme(R.style.MoonTheme)
-                    saveTheme(MOON, R.style.MoonTheme)
-                    Toast.makeText(this, MOON, Toast.LENGTH_SHORT)
-                    recreate(requireActivity())
-                }
+                it.context?.setTheme(MOON_ID)
+                saveTheme(MOON, R.style.MoonTheme)
+                recreate(requireActivity())
             }
         }
 
@@ -87,7 +80,7 @@ class SettingsFragment : Fragment() {
         activity?.let {
             theme =
                 it.getSharedPreferences(SETTINGS_SHARED_PREFERENCE, Context.MODE_PRIVATE)
-                .getString(THEME_NAME_SHARED_PREFERENCE, EARTH).toString()
+                .getString(THEME_NAME_SHARED_PREFERENCE, MARS).toString()
             when (theme) {
                 MARS -> {
                     mars_theme_chip.isChecked = true
