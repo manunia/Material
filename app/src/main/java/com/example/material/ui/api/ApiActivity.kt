@@ -22,6 +22,8 @@ class ApiActivity : AppCompatActivity() {
         view_pager.adapter = ViewPagerAdapter(supportFragmentManager)
         tab_layout.setupWithViewPager(view_pager)
 
+        setCustomTabs()
+
         view_pager.addOnPageChangeListener(object : ViewPager.OnPageChangeListener {
 
             override fun onPageSelected(position: Int) {

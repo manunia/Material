@@ -13,6 +13,8 @@ import androidx.lifecycle.ViewModelProviders
 import coil.api.load
 import com.example.material.MainActivity
 import com.example.material.R
+import com.example.material.ui.api.ApiActivity
+import com.example.material.ui.apibottom.ApiBottomActivity
 import com.example.material.ui.chips.SettingsFragment
 import com.google.android.material.bottomappbar.BottomAppBar
 import com.google.android.material.bottomsheet.BottomSheetBehavior
@@ -142,7 +144,7 @@ class PictureOfTheDayFragment : Fragment() {
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         when (item.itemId) {
-            R.id.app_bar_fav -> toast("Favourite")
+            R.id.app_bar_fav -> activity?.let { startActivity(Intent(it, ApiBottomActivity::class.java)) }
             R.id.app_bar_search -> toast("Search")
             R.id.app_bar_settings ->
                 activity?.supportFragmentManager?.beginTransaction()?.add(
@@ -153,6 +155,7 @@ class PictureOfTheDayFragment : Fragment() {
                     BottomNavDrawerFragment().show(it.supportFragmentManager, "tag")
                 }
             }
+            R.id.app_bar_api -> activity?.let { startActivity(Intent(it, ApiActivity::class.java)) }
 
         }
         return super.onOptionsItemSelected(item)
