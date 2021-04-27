@@ -7,6 +7,30 @@
     <color name="teal_700">#FF018786</color>
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
+
+    <color name="marscolorPrimary">#F44336</color>
+    <color name="marscolorPrimaryVariant">#FF5722</color>
+    <color name="marscolorOnPrimary">#EFD6D6</color>
+    <color name="marscolorSecondary">#F46A3E</color>
+    <color name="marscolorSecondaryVariant">#9F5D30</color>
+    <color name="marscolorOnSecondary">#2B1717</color>
+    <color name="marscolorSurface">#B6B0AB</color>
+
+    <color name="mooncolorPrimary">#3C3F42</color>
+    <color name="mooncolorPrimaryVariant">#434A50</color>
+    <color name="mooncolorOnPrimary">#D0D2D5</color>
+    <color name="mooncolorSecondary">#EAE478</color>
+    <color name="mooncolorSecondaryVariant">#F3EF44</color>
+    <color name="mooncolorOnSecondary">#2B1717</color>
+    <color name="mooncolorSurface">#5E5C56</color>
+
+    <color name="earthcolorPrimary">#37AAF6</color>
+    <color name="earthcolorPrimaryVariant">#419EEF</color>
+    <color name="earthcolorOnPrimary">#D6E0EF</color>
+    <color name="earthcolorSecondary">#30B586</color>
+    <color name="earthcolorSecondaryVariant">#5DBC87</color>
+    <color name="earthcolorOnSecondary">#2B1717</color>
+    <color name="earthcolorSurface">#A7BFD1</color>
     <color name="colorAccent">#F44336</color>
     <color name="colorAccent40Alfa">#36F6E0</color>
     <color name="colorPrimaryDark">#6B1C16</color>
