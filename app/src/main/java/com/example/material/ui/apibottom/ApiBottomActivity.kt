@@ -35,10 +35,31 @@ class ApiBottomActivity : AppCompatActivity() {
             }
         }
         bottom_navigation_view.selectedItemId = R.id.bottom_view_earth
+
+        bottom_navigation_view.setOnNavigationItemReselectedListener { item ->
+            when(item.itemId) {
+                R.id.bottom_view_earth -> {
+
+                }
+                R.id.bottom_view_mars -> {
+
+                }
+                R.id.bottom_view_weather -> {
+
+                }
+            }
+        }
+
+        bottom_navigation_view.getOrCreateBadge(R.id.bottom_view_earth)
+        val bage = bottom_navigation_view.getBadge(R.id.bottom_view_earth)
+        bage?.maxCharacterCount = 2
+        bage?.number = 999
+
     }
 
     fun replaceFragment(fragment: Fragment) {
         supportFragmentManager.beginTransaction()
             .replace(R.id.activity_api_bottom_container, fragment)
+            .commitAllowingStateLoss()
     }
 }
