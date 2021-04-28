@@ -3,6 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:padding="10dp"
     android:orientation="vertical"
     android:background="#FFFF">
 
@@ -12,33 +13,29 @@
         android:layout_marginTop="16dp"
         android:orientation="vertical">
 
-        <com.google.android.material.chip.Chip
-            android:layout_width="wrap_content"
+        <TextView
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Background Color"
-            app:chipBackgroundColor="@android:color/holo_blue_bright" />
+            android:text="Select theme"/>
 
         <com.google.android.material.chip.Chip
-            style="@style/Widget.MaterialComponents.Chip.Choice"
+            android:id="@+id/mars_theme_chip"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Ripple Color"
-            app:rippleColor="@android:color/holo_orange_dark" />
+            android:text="Mars" />
 
         <com.google.android.material.chip.Chip
+            android:id="@+id/earth_theme_chip"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Chip icon"
-            app:chipIcon="@drawable/ic_archive"
-            app:iconStartPadding="10dp" />
+            android:text="Earth" />
 
         <com.google.android.material.chip.Chip
-            android:id="@+id/chip_close"
-            style="@style/Widget.MaterialComponents.Chip.Entry"
+            android:id="@+id/moon_theme_chip"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_gravity="center_horizontal"
-            android:layout_marginTop="24dp"
-            android:text="Close Icon Listener" />
+            android:text="Moon" />
+
+
     </LinearLayout>
 </LinearLayout>

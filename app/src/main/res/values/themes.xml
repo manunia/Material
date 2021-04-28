@@ -9,8 +9,57 @@
         <item name="colorSecondary">@color/teal_200</item>
         <item name="colorSecondaryVariant">@color/teal_700</item>
         <item name="colorOnSecondary">@color/black</item>
+
         <!-- Status bar color. -->
         <item name="android:statusBarColor" tools:targetApi="l">?attr/colorPrimaryVariant</item>
         <!-- Customize your theme here. -->
+
+        <item name="textColorConnected">@color/purple_200</item>
     </style>
+
+    <style name="MarsTheme" parent="Theme.MaterialComponents.DayNight.NoActionBar">
+        <item name="colorPrimary">@color/marscolorPrimary</item>
+        <item name="colorPrimaryVariant">@color/marscolorPrimaryVariant</item>
+        <item name="colorOnPrimary">@color/marscolorOnPrimary</item>
+        <!-- Secondary brand color. -->
+        <item name="colorSecondary">@color/marscolorSecondary</item>
+        <item name="colorSecondaryVariant">@color/marscolorSecondaryVariant</item>
+        <item name="colorOnSecondary">@color/marscolorOnSecondary</item>
+        <!-- Status bar color. -->
+        <item name="android:statusBarColor" tools:targetApi="l">?attr/colorPrimaryVariant</item>
+        <item name="android:navigationBarColor">?attr/colorPrimary</item>
+        <item name="android:actionBarStyle">?attr/colorSecondary</item>
+        <item name="colorSurface">@color/marscolorSurface</item>
+    </style>
+
+    <style name="EarthTheme" parent="Theme.MaterialComponents.DayNight.NoActionBar">
+        <item name="colorPrimary">@color/earthcolorPrimary</item>
+        <item name="colorPrimaryVariant">@color/earthcolorPrimaryVariant</item>
+        <item name="colorOnPrimary">@color/earthcolorOnPrimary</item>
+        <!-- Secondary brand color. -->
+        <item name="colorSecondary">@color/earthcolorSecondary</item>
+        <item name="colorSecondaryVariant">@color/earthcolorSecondaryVariant</item>
+        <item name="colorOnSecondary">@color/earthcolorOnSecondary</item>
+        <!-- Status bar color. -->
+        <item name="android:statusBarColor" tools:targetApi="l">?attr/colorPrimaryVariant</item>
+        <item name="android:navigationBarColor">?attr/colorPrimary</item>
+        <item name="android:actionBarStyle">?attr/colorSecondary</item>
+        <item name="colorSurface">@color/earthcolorSurface</item>
+    </style>
+
+    <style name="MoonTheme" parent="Theme.MaterialComponents.DayNight.NoActionBar">
+        <item name="colorPrimary">@color/mooncolorPrimary</item>
+        <item name="colorPrimaryVariant">@color/mooncolorPrimaryVariant</item>
+        <item name="colorOnPrimary">@color/mooncolorOnPrimary</item>
+        <!-- Secondary brand color. -->
+        <item name="colorSecondary">@color/mooncolorSecondary</item>
+        <item name="colorSecondaryVariant">@color/mooncolorSecondaryVariant</item>
+        <item name="colorOnSecondary">@color/mooncolorOnSecondary</item>
+        <!-- Status bar color. -->
+        <item name="android:statusBarColor" tools:targetApi="l">?attr/colorPrimaryVariant</item>
+        <item name="android:navigationBarColor">?attr/colorPrimary</item>
+        <item name="android:actionBarStyle">?attr/colorSecondary</item>
+        <item name="colorSurface">@color/mooncolorSurface</item>
+    </style>
+
 </resources>
