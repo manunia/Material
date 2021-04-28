@@ -4,6 +4,7 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.example.material.BuildConfig
+import com.example.material.ui.picture.responceData.PODServerResponseData
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response

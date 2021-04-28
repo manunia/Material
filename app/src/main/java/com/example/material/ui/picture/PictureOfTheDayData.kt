@@ -1,5 +1,7 @@
 package com.example.material.ui.picture
 
+import com.example.material.ui.picture.responceData.PODServerResponseData
+
 sealed class PictureOfTheDayData {
     data class Success(val serverResponseData: PODServerResponseData) : PictureOfTheDayData()
     data class Error(val error: Throwable) : PictureOfTheDayData()

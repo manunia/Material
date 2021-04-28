@@ -16,6 +16,7 @@ import com.example.material.R
 import com.example.material.ui.api.ApiActivity
 import com.example.material.ui.apibottom.ApiBottomActivity
 import com.example.material.ui.chips.SettingsFragment
+import com.example.material.ui.picture.responceData.PODServerResponseData
 import com.google.android.material.bottomappbar.BottomAppBar
 import com.google.android.material.bottomsheet.BottomSheetBehavior
 import kotlinx.android.synthetic.main.bottom_sheet_layout.*
@@ -51,15 +52,43 @@ class PictureOfTheDayFragment : Fragment() {
                 data = Uri.parse("https://en.wikipedia.org/wiki/${input_edit_text.text.toString()}")
             })
         }
-        hd_chips.setOnClickListener {
-            if (!isHD) {
-                loadImage(hdUrl)
-                isHD = true
-            } else {
-                loadImage(url)
-                isHD = false
+
+        bottom_navigation_view.setOnNavigationItemSelectedListener { item ->
+            when (item.itemId) {
+                R.id.bottom_view_earth -> {
+                    loadImage(url)
+                    true
+                }
+                R.id.bottom_view_mars -> {
+                    loadImage(url)
+                    true
+                }
+                R.id.bottom_view_weather -> {
+                    loadImage(url)
+                    true
+                }
+                else -> {
+                    loadImage(url)
+                    true
+                }
             }
         }
+        bottom_navigation_view.selectedItemId = R.id.bottom_view_earth
+
+        bottom_navigation_view.setOnNavigationItemReselectedListener { item ->
+            when(item.itemId) {
+                R.id.bottom_view_earth -> {
+
+                }
+                R.id.bottom_view_mars -> {
+
+                }
+                R.id.bottom_view_weather -> {
+
+                }
+            }
+        }
+
 
         setBottomAppBar(view)
     }
@@ -69,11 +98,9 @@ class PictureOfTheDayFragment : Fragment() {
             is PictureOfTheDayData.Success -> {
                 serverResponseData = data.serverResponseData
                 url = serverResponseData!!.url
-                hdUrl = serverResponseData!!.hdurl
                 if (url.isNullOrEmpty()) {
                     toast("Empty link")
                 } else {
-                    isHD = false
                     loadImage(url)
                 }
 
@@ -186,11 +213,9 @@ class PictureOfTheDayFragment : Fragment() {
     companion object {
         fun newInstance() = PictureOfTheDayFragment()
         private var isMain = true
-        private var isHD = true
 
         private var serverResponseData: PODServerResponseData? = null
         private var url: String? = null
-        private var hdUrl: String? = null
     }
 
 }

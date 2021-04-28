@@ -1,4 +1,4 @@
-package com.example.material.ui.picture
+package com.example.material.ui.picture.responceData
 
 import com.google.gson.annotations.SerializedName
 
