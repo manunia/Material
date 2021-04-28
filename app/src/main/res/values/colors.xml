@@ -31,4 +31,7 @@
     <color name="earthcolorSecondaryVariant">#5DBC87</color>
     <color name="earthcolorOnSecondary">#2B1717</color>
     <color name="earthcolorSurface">#A7BFD1</color>
+    <color name="colorAccent">#F44336</color>
+    <color name="colorAccent40Alfa">#36F6E0</color>
+    <color name="colorPrimaryDark">#6B1C16</color>
 </resources>

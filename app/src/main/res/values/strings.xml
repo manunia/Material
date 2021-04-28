@@ -6,4 +6,5 @@
     <string name="favourite">favourite</string>
     <string name="settings">settings</string>
     <string name="search">search</string>
+    <string name="view_pager">view pager</string>
 </resources>
