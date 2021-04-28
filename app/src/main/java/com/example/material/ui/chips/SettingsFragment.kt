@@ -1,98 +1,89 @@
 package com.example.material.ui.chips
 
 import android.content.Context
+import android.content.SharedPreferences
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
-import androidx.appcompat.view.ContextThemeWrapper
-import androidx.core.app.ActivityCompat.recreate
 import androidx.fragment.app.Fragment
-import com.example.material.EARTH_ID
-import com.example.material.MARS_ID
-import com.example.material.MOON_ID
 import com.example.material.R
 import kotlinx.android.synthetic.main.settings_fragment.*
 
-const val SETTINGS_SHARED_PREFERENCE = "SETTINGS_SHARED_PREFERENCE"
-const val THEME_NAME_SHARED_PREFERENCE = "THEME_NAME_SHARED_PREFERENCE"
-const val THEME_RES_ID = "THEME_RES_ID"
-const val MARS = "MARS"
-const val EARTH = "EARTH"
-const val MOON = "MOON"
+
 
 
 class SettingsFragment : Fragment() {
 
-    private lateinit var theme: String
+    private val NAME_SHARED_PREFERENCE = "LOGIN"
+    private val APP_THEME = "APP_THEME"
+    private val MARS = 0
+    private val EARTH = 1
+    private val MOON = 2
 
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        val themeId: Int = requireActivity().getSharedPreferences(SETTINGS_SHARED_PREFERENCE, Context.MODE_PRIVATE)
-            .getInt(THEME_RES_ID, R.style.MarsTheme)
-        val inflaterNew: LayoutInflater = LayoutInflater.from(ContextThemeWrapper(context, themeId))
-        return inflaterNew.inflate(R.layout.settings_fragment, container, false)
+        activity?.setTheme(getAppTheme(R.style.MarsTheme))
+        return inflater.inflate(R.layout.settings_fragment, container, false)
+    }
+
+    private fun getAppTheme(themeId: Int): Int {
+        return getThemeId(getSharedPrefs(themeId))
+    }
+
+    private fun getSharedPrefs(themeId: Int): Int {
+        val sharedPref: SharedPreferences? = activity?.getSharedPreferences(
+            NAME_SHARED_PREFERENCE, Context.MODE_PRIVATE
+        )
+        return sharedPref?.getInt(APP_THEME,themeId)!!
+    }
+
+    fun getThemeId(themeId: Int):Int {
+        return when(themeId) {
+            MARS -> R.style.MarsTheme
+            MOON -> R.style.MoonTheme
+            EARTH -> R.style.EarthTheme
+            else -> R.style.MarsTheme
+        }
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        setSharedPref()
 
         mars_theme_chip.setOnClickListener {
-            if (theme != MARS) {
-                it.context?.setTheme(MARS_ID)
-                saveTheme(MARS, R.style.MarsTheme)
-                recreate(requireActivity())
+            if (!it.isSelected) {
+                saveTheme(R.style.MarsTheme)
+                activity?.recreate()
+                it.isSelected = true
             }
         }
         earth_theme_chip.setOnClickListener {
-            if (theme != EARTH) {
-                it.context?.setTheme(EARTH_ID)
-                saveTheme(EARTH, R.style.EarthTheme)
-                recreate(requireActivity())
+            if (!it.isSelected) {
+                saveTheme(R.style.EarthTheme)
+                activity?.recreate()
+                it.isSelected = true
             }
         }
         moon_theme_chip.setOnClickListener {
-            if (theme != MOON) {
-                it.context?.setTheme(MOON_ID)
-                saveTheme(MOON, R.style.MoonTheme)
-                recreate(requireActivity())
+            if (!it.isSelected) {
+                saveTheme(R.style.MoonTheme)
+                activity?.recreate()
+                it.isSelected = true
             }
         }
 
     }
 
-    private fun saveTheme(themeName: String, theme_id: Int) {
-        this.theme = themeName
-        activity?.let {
-            with(it.getSharedPreferences(SETTINGS_SHARED_PREFERENCE, Context.MODE_PRIVATE).edit()) {
-                putString(THEME_NAME_SHARED_PREFERENCE, themeName).commit()
-                putInt(THEME_RES_ID, theme_id).commit()
-            }
-        }
-    }
-
-    private fun setSharedPref() {
-        activity?.let {
-            theme =
-                it.getSharedPreferences(SETTINGS_SHARED_PREFERENCE, Context.MODE_PRIVATE)
-                .getString(THEME_NAME_SHARED_PREFERENCE, MARS).toString()
-            when (theme) {
-                MARS -> {
-                    mars_theme_chip.isChecked = true
-                }
-                EARTH -> {
-                    earth_theme_chip.isChecked = true
-                }
-                MOON -> {
-                    moon_theme_chip.isChecked = true
-                }
-            }
-        }
+    private fun saveTheme(theme_id: Int) {
+        val sharedPref: SharedPreferences? = activity?.getSharedPreferences(
+            NAME_SHARED_PREFERENCE, Context.MODE_PRIVATE
+        )
+        val editor = sharedPref?.edit()
+        editor?.putInt(APP_THEME, theme_id)
+        editor?.apply()
     }
 
     companion object {

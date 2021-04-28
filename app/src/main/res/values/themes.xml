@@ -17,7 +17,7 @@
         <item name="textColorConnected">@color/purple_200</item>
     </style>
 
-    <style name="MarsTheme" parent="Theme.MaterialComponents.DayNight.NoActionBar">
+    <style name="MarsTheme" parent="Theme.Material">
         <item name="colorPrimary">@color/marscolorPrimary</item>
         <item name="colorPrimaryVariant">@color/marscolorPrimaryVariant</item>
         <item name="colorOnPrimary">@color/marscolorOnPrimary</item>
@@ -32,7 +32,7 @@
         <item name="colorSurface">@color/marscolorSurface</item>
     </style>
 
-    <style name="EarthTheme" parent="Theme.MaterialComponents.DayNight.NoActionBar">
+    <style name="EarthTheme" parent="Theme.Material">
         <item name="colorPrimary">@color/earthcolorPrimary</item>
         <item name="colorPrimaryVariant">@color/earthcolorPrimaryVariant</item>
         <item name="colorOnPrimary">@color/earthcolorOnPrimary</item>
@@ -47,7 +47,7 @@
         <item name="colorSurface">@color/earthcolorSurface</item>
     </style>
 
-    <style name="MoonTheme" parent="Theme.MaterialComponents.DayNight.NoActionBar">
+    <style name="MoonTheme" parent="Theme.Material">
         <item name="colorPrimary">@color/mooncolorPrimary</item>
         <item name="colorPrimaryVariant">@color/mooncolorPrimaryVariant</item>
         <item name="colorOnPrimary">@color/mooncolorOnPrimary</item>
