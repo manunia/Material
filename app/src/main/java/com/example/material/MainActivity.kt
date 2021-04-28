@@ -3,7 +3,6 @@ package com.example.material
 import android.content.Context
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
-import com.example.material.ui.chips.*
 import com.example.material.ui.picture.PictureOfTheDayFragment
 
 class MainActivity : AppCompatActivity() {

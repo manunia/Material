@@ -15,12 +15,13 @@ import com.example.material.MainActivity
 import com.example.material.R
 import com.example.material.ui.api.ApiActivity
 import com.example.material.ui.apibottom.ApiBottomActivity
-import com.example.material.ui.chips.SettingsFragment
+import com.example.material.ui.settings.SettingsFragment
 import com.example.material.ui.picture.responceData.PODServerResponseData
 import com.google.android.material.bottomappbar.BottomAppBar
 import com.google.android.material.bottomsheet.BottomSheetBehavior
 import kotlinx.android.synthetic.main.bottom_sheet_layout.*
 import kotlinx.android.synthetic.main.main_fragment.*
+import java.time.LocalDate
 
 class PictureOfTheDayFragment : Fragment() {
 
@@ -40,35 +41,27 @@ class PictureOfTheDayFragment : Fragment() {
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
-        viewModel.getData()
-            .observe(this@PictureOfTheDayFragment, Observer<PictureOfTheDayData> { renderData(it) })
-    }
-
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
-        setBottomSheetBehavior(view.findViewById(R.id.bottom_sheet_container))
-        input_layout.setEndIconOnClickListener {
-            startActivity(Intent(Intent.ACTION_VIEW).apply {
-                data = Uri.parse("https://en.wikipedia.org/wiki/${input_edit_text.text.toString()}")
-            })
-        }
 
         bottom_navigation_view.setOnNavigationItemSelectedListener { item ->
             when (item.itemId) {
                 R.id.bottom_view_earth -> {
-                    loadImage(url)
+                    viewModel.getData(targetDate)
+                        .observe(this@PictureOfTheDayFragment, Observer<PictureOfTheDayData> { renderData(it) })
                     true
                 }
                 R.id.bottom_view_mars -> {
-                    loadImage(url)
+                    viewModel.getData(targetDate.minusDays(1))
+                        .observe(this@PictureOfTheDayFragment, Observer<PictureOfTheDayData> { renderData(it) })
                     true
                 }
                 R.id.bottom_view_weather -> {
-                    loadImage(url)
+                    viewModel.getData(targetDate.minusDays(2))
+                        .observe(this@PictureOfTheDayFragment, Observer<PictureOfTheDayData> { renderData(it) })
                     true
                 }
                 else -> {
-                    loadImage(url)
+                    viewModel.getData(targetDate)
+                        .observe(this@PictureOfTheDayFragment, Observer<PictureOfTheDayData> { renderData(it) })
                     true
                 }
             }
@@ -88,6 +81,20 @@ class PictureOfTheDayFragment : Fragment() {
                 }
             }
         }
+
+
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        setBottomSheetBehavior(view.findViewById(R.id.bottom_sheet_container))
+        input_layout.setEndIconOnClickListener {
+            startActivity(Intent(Intent.ACTION_VIEW).apply {
+                data = Uri.parse("https://en.wikipedia.org/wiki/${input_edit_text.text.toString()}")
+            })
+        }
+        loadImage(url)
+
 
 
         setBottomAppBar(view)
@@ -216,6 +223,8 @@ class PictureOfTheDayFragment : Fragment() {
 
         private var serverResponseData: PODServerResponseData? = null
         private var url: String? = null
+
+        private var targetDate: LocalDate = LocalDate.now()
     }
 
 }

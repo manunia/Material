@@ -1,4 +1,4 @@
-package com.example.material.ui.chips
+package com.example.material.ui.settings
 
 import android.content.Context
 import android.content.SharedPreferences

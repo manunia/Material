@@ -8,17 +8,18 @@ import com.example.material.ui.picture.responceData.PODServerResponseData
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
+import java.time.LocalDate
 
 class PictureOfTheDayViewModel(
     private val liveDataForViewToObserve: MutableLiveData<PictureOfTheDayData> = MutableLiveData(),
     private val retrofitImpl: PODRetrofitImpl = PODRetrofitImpl()
 ) : ViewModel() {
-    fun getData(): LiveData<PictureOfTheDayData> {
-        sendServerRequest()
+    fun getData(date: LocalDate): LiveData<PictureOfTheDayData> {
+        sendServerRequest(date)
         return liveDataForViewToObserve
     }
 
-    private fun sendServerRequest() {
+    private fun sendServerRequest(date: LocalDate) {
         liveDataForViewToObserve.value = PictureOfTheDayData.Loading(null)
 
         val apiKey: String = BuildConfig.NASA_API_KEY
@@ -27,7 +28,7 @@ class PictureOfTheDayViewModel(
             liveDataForViewToObserve.value =
                 PictureOfTheDayData.Error(Throwable("No API KEY! Need API key"))
         } else {
-            retrofitImpl.getRetrofitImpl().getPictureOfTheDay(apiKey)
+            retrofitImpl.getRetrofitImpl().getPictureByDate(date,apiKey)
                 .enqueue(object : Callback<PODServerResponseData> {
                     override fun onFailure(call: Call<PODServerResponseData>, t: Throwable) {
                         liveDataForViewToObserve.value = PictureOfTheDayData.Error(t)
