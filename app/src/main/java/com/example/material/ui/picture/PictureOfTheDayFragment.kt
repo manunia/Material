@@ -15,11 +15,13 @@ import com.example.material.MainActivity
 import com.example.material.R
 import com.example.material.ui.api.ApiActivity
 import com.example.material.ui.apibottom.ApiBottomActivity
-import com.example.material.ui.chips.SettingsFragment
+import com.example.material.ui.settings.SettingsFragment
+import com.example.material.ui.picture.responceData.PODServerResponseData
 import com.google.android.material.bottomappbar.BottomAppBar
 import com.google.android.material.bottomsheet.BottomSheetBehavior
 import kotlinx.android.synthetic.main.bottom_sheet_layout.*
 import kotlinx.android.synthetic.main.main_fragment.*
+import java.time.LocalDate
 
 class PictureOfTheDayFragment : Fragment() {
 
@@ -39,8 +41,48 @@ class PictureOfTheDayFragment : Fragment() {
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
-        viewModel.getData()
-            .observe(this@PictureOfTheDayFragment, Observer<PictureOfTheDayData> { renderData(it) })
+
+        bottom_navigation_view.setOnNavigationItemSelectedListener { item ->
+            when (item.itemId) {
+                R.id.bottom_view_earth -> {
+                    viewModel.getData(targetDate)
+                        .observe(this@PictureOfTheDayFragment, Observer<PictureOfTheDayData> { renderData(it) })
+                    true
+                }
+                R.id.bottom_view_mars -> {
+                    viewModel.getData(targetDate.minusDays(1))
+                        .observe(this@PictureOfTheDayFragment, Observer<PictureOfTheDayData> { renderData(it) })
+                    true
+                }
+                R.id.bottom_view_weather -> {
+                    viewModel.getData(targetDate.minusDays(2))
+                        .observe(this@PictureOfTheDayFragment, Observer<PictureOfTheDayData> { renderData(it) })
+                    true
+                }
+                else -> {
+                    viewModel.getData(targetDate)
+                        .observe(this@PictureOfTheDayFragment, Observer<PictureOfTheDayData> { renderData(it) })
+                    true
+                }
+            }
+        }
+        bottom_navigation_view.selectedItemId = R.id.bottom_view_earth
+
+        bottom_navigation_view.setOnNavigationItemReselectedListener { item ->
+            when(item.itemId) {
+                R.id.bottom_view_earth -> {
+
+                }
+                R.id.bottom_view_mars -> {
+
+                }
+                R.id.bottom_view_weather -> {
+
+                }
+            }
+        }
+
+
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -51,15 +93,9 @@ class PictureOfTheDayFragment : Fragment() {
                 data = Uri.parse("https://en.wikipedia.org/wiki/${input_edit_text.text.toString()}")
             })
         }
-        hd_chips.setOnClickListener {
-            if (!isHD) {
-                loadImage(hdUrl)
-                isHD = true
-            } else {
-                loadImage(url)
-                isHD = false
-            }
-        }
+        loadImage(url)
+
+
 
         setBottomAppBar(view)
     }
@@ -69,11 +105,9 @@ class PictureOfTheDayFragment : Fragment() {
             is PictureOfTheDayData.Success -> {
                 serverResponseData = data.serverResponseData
                 url = serverResponseData!!.url
-                hdUrl = serverResponseData!!.hdurl
                 if (url.isNullOrEmpty()) {
                     toast("Empty link")
                 } else {
-                    isHD = false
                     loadImage(url)
                 }
 
@@ -186,11 +220,11 @@ class PictureOfTheDayFragment : Fragment() {
     companion object {
         fun newInstance() = PictureOfTheDayFragment()
         private var isMain = true
-        private var isHD = true
 
         private var serverResponseData: PODServerResponseData? = null
         private var url: String? = null
-        private var hdUrl: String? = null
+
+        private var targetDate: LocalDate = LocalDate.now()
     }
 
 }

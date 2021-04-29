@@ -3,20 +3,19 @@ package com.example.material
 import android.content.Context
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
-import com.example.material.ui.chips.SETTINGS_SHARED_PREFERENCE
-import com.example.material.ui.chips.THEME_RES_ID
 import com.example.material.ui.picture.PictureOfTheDayFragment
-
-const val MARS_ID = 1
-const val EARTH_ID = 2
-const val MOON_ID = 3
 
 class MainActivity : AppCompatActivity() {
 
-    private val sharedPreferences by lazy { getSharedPreferences(SETTINGS_SHARED_PREFERENCE, Context.MODE_PRIVATE) }
+    private val NAME_SHARED_PREFERENCE = "LOGIN"
+    private val APP_THEME = "APP_THEME"
+    private val MARS = 0
+    private val EARTH = 1
+    private val MOON = 2
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        getAppTheme()
         setContentView(R.layout.activity_main)
         if (savedInstanceState == null) {
             supportFragmentManager.beginTransaction()
@@ -24,22 +23,18 @@ class MainActivity : AppCompatActivity() {
                 .commitNow()
         }
 
-        when(themeId()) {
-            MARS_ID -> {
-                R.style.MarsTheme
-                this.setTheme(MARS_ID)
-            }
-            EARTH_ID -> {
-                R.style.EarthTheme
-                this.setTheme(EARTH_ID)
-            }
-            MOON_ID -> {
-                R.style.MoonTheme
-                this.setTheme(MOON_ID)
-            }
-            else -> R.style.Theme_Material
-        }
     }
 
-    fun themeId(): Int = sharedPreferences.getInt(THEME_RES_ID,R.style.MarsTheme)
+    private fun getAppTheme() {
+        val sharedPref = getSharedPreferences(NAME_SHARED_PREFERENCE, Context.MODE_PRIVATE)
+        val codeStyle = sharedPref.getInt(APP_THEME,1)
+        when(codeStyle) {
+            MARS -> setTheme(R.style.MarsTheme)
+            MOON -> setTheme(R.style.MoonTheme)
+            EARTH -> setTheme(R.style.EarthTheme)
+            else -> setTheme(R.style.MarsTheme)
+        }
+
+    }
+
 }
