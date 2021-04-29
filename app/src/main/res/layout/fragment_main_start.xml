@@ -3,8 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:padding="10dp">
+    android:layout_height="match_parent">
 
     <androidx.core.widget.NestedScrollView
         android:layout_width="match_parent"
@@ -25,8 +24,10 @@
                 android:layout_marginEnd="8dp"
                 android:layout_marginBottom="10dp"
                 android:visibility="visible"
+                app:layout_constraintBottom_toBottomOf="@+id/input_layout"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:srcCompat="@drawable/ic_wikipedia"/>
+                app:layout_constraintTop_toTopOf="@+id/input_layout"
+                app:srcCompat="@drawable/ic_wikipedia" />
 
             <com.google.android.material.textfield.TextInputLayout
                 android:id="@+id/input_layout"
@@ -41,8 +42,7 @@
                 app:endIconMode="custom"
                 app:helperText="@string/wiki_helper_text"
                 app:layout_constraintBottom_toTopOf="@+id/image_view"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toEndtOf="parent">
+                app:layout_constraintStart_toEndOf="parent">
 
                 <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/input_edit_text"
@@ -51,30 +51,39 @@
                     android:inputType="text" />
             </com.google.android.material.textfield.TextInputLayout>
 
-            <com.example.material.view.EquilateralImageView
-                android:id="@+id/image_view"
+            <FrameLayout
+                android:id="@+id/activity_api_bottom_container"
                 android:layout_width="match_parent"
-                android:layout_height="450dp"
-                android:layout_gravity="center"
-                android:contentDescription="@string/photo_of_the_day_stub"
+                android:layout_height="wrap_content"
+                app:layout_constraintBottom_toTopOf="@+id/bottom_navigation_view"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent">
+
+                <com.example.material.view.EquilateralImageView
+                    android:id="@+id/image_view"
+                    android:layout_width="match_parent"
+                    android:layout_height="500dp"
+                    android:layout_gravity="center"
+                    android:contentDescription="@string/photo_of_the_day_stub"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:srcCompat="@drawable/ic_no_photo_vector"
+                    tools:ignore="VectorDrawableCompat" />
+            </FrameLayout>
+
+            <com.google.android.material.bottomnavigation.BottomNavigationView
+                android:id="@+id/bottom_navigation_view"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
-                app:srcCompat="@drawable/ic_no_photo_vector"
-                tools:ignore="VectorDrawableCompat" />
-
+                app:menu="@menu/menu_bottom_navigation_view" />
         </androidx.constraintlayout.motion.widget.MotionLayout>
     </androidx.core.widget.NestedScrollView>
-
-    <com.google.android.material.chip.Chip
-        android:id="@+id/hd_chips"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="HD"
-        app:layout_anchor="@id/image_view"
-        app:layout_anchorGravity="bottom"
-        app:rippleColor="@android:color/holo_orange_dark" />
 
     <include layout="@layout/bottom_sheet_layout" />
 
