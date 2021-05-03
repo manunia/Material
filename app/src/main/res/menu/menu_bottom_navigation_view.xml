@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
     <item
-        android:id="@+id/bottom_view_earth"
+        android:id="@+id/bottom_view_today"
         android:icon="@drawable/ic_earth"
-        android:title="Позавчера" />
+        android:title="Сегодня" />
 
     <item
         android:id="@+id/bottom_view_mars"
@@ -13,5 +13,5 @@
     <item
         android:id="@+id/bottom_view_weather"
         android:icon="@drawable/ic_system"
-        android:title="Сегодня" />
+        android:title="Позавчера" />
 </menu>

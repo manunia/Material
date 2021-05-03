@@ -4,26 +4,32 @@ import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
 import android.view.*
+import android.widget.ImageView
 import android.widget.Toast
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
+import androidx.transition.*
 import coil.api.load
 import com.example.material.MainActivity
 import com.example.material.R
 import com.example.material.ui.api.ApiActivity
 import com.example.material.ui.apibottom.ApiBottomActivity
-import com.example.material.ui.settings.SettingsFragment
 import com.example.material.ui.picture.responceData.PODServerResponseData
+import com.example.material.ui.settings.SettingsFragment
 import com.google.android.material.bottomappbar.BottomAppBar
 import com.google.android.material.bottomsheet.BottomSheetBehavior
 import kotlinx.android.synthetic.main.bottom_sheet_layout.*
+import kotlinx.android.synthetic.main.fragment_earth.*
 import kotlinx.android.synthetic.main.fragment_main_start.*
 import java.time.LocalDate
 
 class PictureOfTheDayFragment : Fragment() {
+
+
+    private var isExpanded = false
 
     private lateinit var bottomSheetBehavior: BottomSheetBehavior<ConstraintLayout>
 
@@ -44,9 +50,10 @@ class PictureOfTheDayFragment : Fragment() {
 
         bottom_navigation_view.setOnNavigationItemSelectedListener { item ->
             when (item.itemId) {
-                R.id.bottom_view_earth -> {
+                R.id.bottom_view_today -> {
                     viewModel.getData(targetDate)
                         .observe(this@PictureOfTheDayFragment, Observer<PictureOfTheDayData> { renderData(it) })
+                    TransitionManager.beginDelayedTransition(activity_api_bottom_container,Slide(Gravity.END))
                     true
                 }
                 R.id.bottom_view_mars -> {
@@ -66,22 +73,20 @@ class PictureOfTheDayFragment : Fragment() {
                 }
             }
         }
-        bottom_navigation_view.selectedItemId = R.id.bottom_view_earth
+        bottom_navigation_view.selectedItemId = R.id.bottom_view_today
 
-        bottom_navigation_view.setOnNavigationItemReselectedListener { item ->
-            when(item.itemId) {
-                R.id.bottom_view_earth -> {
+        image_view.setOnClickListener {
+            isExpanded = !isExpanded
+            TransitionManager.beginDelayedTransition(main, TransitionSet()
+                .addTransition(ChangeBounds())
+                .addTransition(ChangeImageTransform()))
 
-                }
-                R.id.bottom_view_mars -> {
+            var params: ViewGroup.LayoutParams = image_view.layoutParams
 
-                }
-                R.id.bottom_view_weather -> {
-
-                }
-            }
+            params.height = if (isExpanded) ViewGroup.LayoutParams.MATCH_PARENT else ViewGroup.LayoutParams.WRAP_CONTENT
+            earth_image.layoutParams = params
+            earth_image.scaleType = if (isExpanded) ImageView.ScaleType.CENTER_CROP else ImageView.ScaleType.FIT_CENTER
         }
-
 
     }
 
