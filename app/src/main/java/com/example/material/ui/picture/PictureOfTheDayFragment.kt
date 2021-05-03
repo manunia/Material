@@ -77,15 +77,21 @@ class PictureOfTheDayFragment : Fragment() {
 
         image_view.setOnClickListener {
             isExpanded = !isExpanded
-            TransitionManager.beginDelayedTransition(main, TransitionSet()
+            TransitionManager.beginDelayedTransition(container, TransitionSet()
                 .addTransition(ChangeBounds())
                 .addTransition(ChangeImageTransform()))
 
             var params: ViewGroup.LayoutParams = image_view.layoutParams
 
-            params.height = if (isExpanded) ViewGroup.LayoutParams.MATCH_PARENT else ViewGroup.LayoutParams.WRAP_CONTENT
-            earth_image.layoutParams = params
-            earth_image.scaleType = if (isExpanded) ImageView.ScaleType.CENTER_CROP else ImageView.ScaleType.FIT_CENTER
+            if (isExpanded) {
+                params.height = 2000
+            } else {
+                params.height = 450
+            }
+
+            //params.height = if (isExpanded) ViewGroup.LayoutParams.MATCH_PARENT else ViewGroup.LayoutParams.WRAP_CONTENT
+            image_view.layoutParams = params
+            image_view.scaleType = if (isExpanded) ImageView.ScaleType.CENTER_CROP else ImageView.ScaleType.FIT_CENTER
         }
 
     }
