@@ -14,6 +14,7 @@ class PictureOfTheDayViewModel(
     private val liveDataForViewToObserve: MutableLiveData<PictureOfTheDayData> = MutableLiveData(),
     private val retrofitImpl: PODRetrofitImpl = PODRetrofitImpl()
 ) : ViewModel() {
+
     fun getData(date: LocalDate): LiveData<PictureOfTheDayData> {
         sendServerRequest(date)
         return liveDataForViewToObserve
