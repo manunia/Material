@@ -1,11 +1,17 @@
 package com.example.material.ui.picture
 
+import android.annotation.SuppressLint
 import android.content.Intent
 import android.net.Uri
+import android.os.Build
 import android.os.Bundle
+import android.text.Spannable
+import android.text.SpannableString
+import android.text.style.BulletSpan
 import android.view.*
 import android.widget.ImageView
 import android.widget.Toast
+import androidx.annotation.RequiresApi
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
@@ -21,8 +27,8 @@ import com.example.material.ui.picture.responceData.PODServerResponseData
 import com.example.material.ui.settings.SettingsFragment
 import com.google.android.material.bottomappbar.BottomAppBar
 import com.google.android.material.bottomsheet.BottomSheetBehavior
+import com.google.android.material.color.MaterialColors.getColor
 import kotlinx.android.synthetic.main.bottom_sheet_layout.*
-import kotlinx.android.synthetic.main.fragment_earth.*
 import kotlinx.android.synthetic.main.fragment_main_start.*
 import java.time.LocalDate
 
@@ -111,6 +117,8 @@ class PictureOfTheDayFragment : Fragment() {
         setBottomAppBar(view)
     }
 
+    @SuppressLint("ResourceAsColor")
+    @RequiresApi(Build.VERSION_CODES.P)
     private fun renderData(data: PictureOfTheDayData) {
         when (data) {
             is PictureOfTheDayData.Success -> {
@@ -123,10 +131,16 @@ class PictureOfTheDayFragment : Fragment() {
                 }
 
                 val explanation: String? = serverResponseData!!.explanation
+                var spannable = SpannableString(explanation)
+                spannable.setSpan(
+                    BulletSpan(20, R.color.colorAccent,20),
+                    9, 10,
+                    Spannable.SPAN_EXCLUSIVE_EXCLUSIVE
+                )
                 if (explanation.isNullOrEmpty()) {
                     bottom_sheet_description.text = "Empty description"
                 } else {
-                    bottom_sheet_description.text = explanation
+                    bottom_sheet_description.text = spannable
                 }
                 val title: String? = serverResponseData!!.title
                 if (title.isNullOrEmpty()) {
