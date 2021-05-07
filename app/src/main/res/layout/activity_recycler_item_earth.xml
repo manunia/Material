@@ -6,9 +6,8 @@
 
     <androidx.appcompat.widget.AppCompatImageView
         android:id="@+id/earthImageView"
-        android:layout_width="120dp"
-        android:layout_height="120dp"
-        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:srcCompat="@drawable/bg_earth" />
@@ -16,27 +15,18 @@
     <androidx.appcompat.widget.AppCompatTextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Земля"
-        android:textSize="35sp"
+        android:text="@string/Note"
+        android:textSize="30sp"
         android:textStyle="bold"
         app:layout_constraintBottom_toBottomOf="@+id/earthImageView"
-        app:layout_constraintEnd_toStartOf="@+id/earthImageView"
+        app:layout_constraintStart_toEndOf="@+id/earthImageView"
         app:layout_constraintTop_toTopOf="@+id/earthImageView" />
-
-    <androidx.appcompat.widget.AppCompatImageView
-        android:id="@+id/wikiImageView"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_margin="15dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@drawable/ic_wikipedia" />
 
     <androidx.appcompat.widget.AppCompatTextView
         android:id="@+id/descriptionTextView"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:text="Дополнительный текст"
+        android:text="@string/text"
         android:textColor="#000"
         android:textSize="15sp"
         app:layout_constraintBottom_toBottomOf="@+id/earthImageView"
@@ -44,12 +34,31 @@
         app:layout_constraintStart_toEndOf="@+id/earthImageView"
         app:layout_constraintTop_toTopOf="@+id/earthImageView" />
 
+    <androidx.appcompat.widget.AppCompatImageView
+        android:id="@+id/earth_add_button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="10dp"
+        android:background="@color/colorAccent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/ic_plus_fab" />
+
+    <androidx.appcompat.widget.AppCompatImageView
+        android:id="@+id/earth_remove_button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="10dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/earth_add_button"
+        app:srcCompat="@drawable/ic_archive" />
+
+
     <androidx.constraintlayout.widget.Barrier
         android:id="@+id/barrier"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        app:barrierDirection="end"
-        app:constraint_referenced_ids="wikiImageView" />
+        app:barrierDirection="end" />
 
     <View
         android:layout_width="match_parent"

@@ -13,15 +13,14 @@ class RecyclerActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_recycler)
         val data = arrayListOf(
-            Data("Earth"),
-            Data("Earth"),
             Data("Mars", ""),
-            Data("Earth"),
-            Data("Earth"),
-            Data("Earth"),
-            Data("Mars", null)
+            Data("Earth","text")
         )
-        recyclerView.adapter = RecyclerActivityAdapter(
+
+        data.add(0, Data("Header"))
+
+
+        var adapter = RecyclerActivityAdapter(
             object : RecyclerActivityAdapter.OnListItemClickListener {
                 override fun onItemClick(data: Data) {
                     Toast.makeText(this@RecyclerActivity, data.someText, Toast.LENGTH_SHORT).show()
@@ -29,6 +28,12 @@ class RecyclerActivity : AppCompatActivity() {
             },
             data
         )
+
+        recyclerView.adapter = adapter
+
+        recyclerActivityFAB.setOnClickListener {
+            adapter.appendItem()
+        }
     }
 }
 
