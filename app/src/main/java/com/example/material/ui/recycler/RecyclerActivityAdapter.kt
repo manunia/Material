@@ -72,17 +72,38 @@ class RecyclerActivityAdapter(
             itemView.mars_remove_button.setOnClickListener {
                 removeItem()
             }
+
+            itemView.moveItemDown.setOnClickListener { moveDown() }
+            itemView.moveItemUp.setOnClickListener { moveUp() }
+
         }
 
         private fun addItem() {
-            data.add(layoutPosition,generateImportantNote())
-            notifyDataSetChanged()
+            data.add(layoutPosition, generateImportantNote())
+            notifyItemInserted(layoutPosition)
         }
 
         private fun removeItem() {
             data.removeAt(layoutPosition)
-            notifyDataSetChanged()
+            notifyItemRemoved(layoutPosition)
         }
+
+        private fun moveUp() {
+            layoutPosition.takeIf { it > 1 }?.also { currentPosition ->
+                data.removeAt(currentPosition).apply {
+                    data.add(currentPosition - 1, this)
+                }
+                notifyItemMoved(currentPosition, currentPosition - 1)
+            }
+
+        }
+
+        private fun moveDown() {
+            layoutPosition.takeIf { it > data.size - 1 }?.also { currentPosition ->
+
+            }
+        }
+
     }
 
 
