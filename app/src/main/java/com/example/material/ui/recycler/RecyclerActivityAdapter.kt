@@ -1,5 +1,6 @@
 package com.example.material.ui.recycler
 
+import android.graphics.Color
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -59,11 +60,11 @@ class RecyclerActivityAdapter(
         }
 
         override fun onItemSelected() {
-            TODO("Not yet implemented")
+            itemView.setBackgroundColor(Color.LTGRAY)
         }
 
         override fun onItemClear() {
-            TODO("Not yet implemented")
+            itemView.setBackgroundColor(0)
         }
     }
 
@@ -84,13 +85,6 @@ class RecyclerActivityAdapter(
                 removeItem()
             }
 
-            if (layoutPosition == 0) {
-                itemView.moveItemUp.visibility = View.GONE
-            }
-
-            itemView.moveItemDown.setOnClickListener { moveDown() }
-            itemView.moveItemUp.setOnClickListener { moveUp() }
-
             itemView.marsDescriptionTextView.visibility = if (data.second) View.VISIBLE else View.GONE
             itemView.marsTextView.setOnClickListener {
                 toggleText()
@@ -99,11 +93,11 @@ class RecyclerActivityAdapter(
         }
 
         override fun onItemSelected() {
-            TODO("Not yet implemented")
+            itemView.setBackgroundColor(Color.YELLOW)
         }
 
         override fun onItemClear() {
-            TODO("Not yet implemented")
+            itemView.setBackgroundColor(0)
         }
 
         private fun addItem() {
@@ -114,25 +108,6 @@ class RecyclerActivityAdapter(
         private fun removeItem() {
             data.removeAt(layoutPosition)
             notifyItemRemoved(layoutPosition)
-        }
-
-        private fun moveUp() {
-            layoutPosition.takeIf { it > 1 }?.also { currentPosition ->
-                data.removeAt(currentPosition).apply {
-                    data.add(currentPosition - 1, this)
-                }
-                notifyItemMoved(currentPosition, currentPosition - 1)
-            }
-
-        }
-
-        private fun moveDown() {
-            layoutPosition.takeIf { it < data.size - 1 }?.also { currentPosition ->
-                data.removeAt(currentPosition).apply {
-                    data.add(currentPosition + 1, this)
-                }
-                notifyItemMoved(currentPosition, currentPosition + 1)
-            }
         }
         
         private fun toggleText() {
@@ -151,11 +126,11 @@ class RecyclerActivityAdapter(
         }
 
         override fun onItemSelected() {
-            TODO("Not yet implemented")
+            itemView.setBackgroundColor(0)
         }
 
         override fun onItemClear() {
-            TODO("Not yet implemented")
+            itemView.setBackgroundColor(0)
         }
     }
 
