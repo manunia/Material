@@ -11,9 +11,9 @@ import kotlinx.android.synthetic.main.activity_recycler_item_mars.view.*
 
 class RecyclerActivityAdapter(
     private var onListItemClickListener: OnListItemClickListener,
-    private var data: MutableList<Data>
+    private var data: MutableList<Pair<Data, Boolean>>
 ) :
-    RecyclerView.Adapter<BaseViewHolder>() {
+    RecyclerView.Adapter<BaseViewHolder>(), ItemTouchHelperAdapter {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): BaseViewHolder {
         val inflater = LayoutInflater.from(parent.context)
@@ -28,8 +28,6 @@ class RecyclerActivityAdapter(
                 inflater.inflate(R.layout.activity_recycler_item_header, parent, false) as View
             )
         }
-
-
     }
 
     override fun onBindViewHolder(holder: BaseViewHolder, position: Int) {
@@ -43,27 +41,40 @@ class RecyclerActivityAdapter(
     override fun getItemViewType(position: Int): Int {
         return when {
             position == 0 -> TYPE_HEADER
-            data[position].someDescription.isNullOrBlank() -> TYPE_MARS
+            data[position].first.someDescription.isNullOrBlank() -> TYPE_MARS
             else -> TYPE_EARTH
         }
     }
 
     inner class EarthViewHolder(view: View) : BaseViewHolder(view) {
-        override fun bind(data: Data) {
+        override fun bind(data: Pair<Data, Boolean>) {
             if (layoutPosition != RecyclerView.NO_POSITION) {
-                itemView.descriptionTextView.text = data.someDescription
+                itemView.descriptionTextView.text = data.first.someDescription
                 itemView.earthImageView.setOnClickListener {
                     onListItemClickListener.onItemClick(
-                        data
+                        data.first
                     )
                 }
             }
         }
+
+        override fun onItemSelected() {
+            TODO("Not yet implemented")
+        }
+
+        override fun onItemClear() {
+            TODO("Not yet implemented")
+        }
     }
 
     inner class MarsViewHolder(view: View) : BaseViewHolder(view) {
-        override fun bind(data: Data) {
-            itemView.marsImageView.setOnClickListener { onListItemClickListener.onItemClick(data) }
+        override fun bind(data: Pair<Data, Boolean>) {
+            itemView.marsImageView.setOnClickListener {
+                onListItemClickListener.onItemClick(
+                    data
+                        .first
+                )
+            }
 
             itemView.mars_add_button.setOnClickListener {
                 addItem()
@@ -73,9 +84,26 @@ class RecyclerActivityAdapter(
                 removeItem()
             }
 
+            if (layoutPosition == 0) {
+                itemView.moveItemUp.visibility = View.GONE
+            }
+
             itemView.moveItemDown.setOnClickListener { moveDown() }
             itemView.moveItemUp.setOnClickListener { moveUp() }
 
+            itemView.marsDescriptionTextView.visibility = if (data.second) View.VISIBLE else View.GONE
+            itemView.marsTextView.setOnClickListener {
+                toggleText()
+            }
+
+        }
+
+        override fun onItemSelected() {
+            TODO("Not yet implemented")
+        }
+
+        override fun onItemClear() {
+            TODO("Not yet implemented")
         }
 
         private fun addItem() {
@@ -99,21 +127,39 @@ class RecyclerActivityAdapter(
         }
 
         private fun moveDown() {
-            layoutPosition.takeIf { it > data.size - 1 }?.also { currentPosition ->
-
+            layoutPosition.takeIf { it < data.size - 1 }?.also { currentPosition ->
+                data.removeAt(currentPosition).apply {
+                    data.add(currentPosition + 1, this)
+                }
+                notifyItemMoved(currentPosition, currentPosition + 1)
             }
         }
+        
+        private fun toggleText() {
+            data[layoutPosition] = data[layoutPosition].let {
+                it.first to !it.second
+            }
+
+            notifyItemChanged(layoutPosition)
+        }
 
     }
 
-
     inner class HeaderViewHolder(view: View) : BaseViewHolder(view) {
-        override fun bind(data: Data) {
-            itemView.setOnClickListener { onListItemClickListener.onItemClick(data) }
+        override fun bind(data: Pair<Data, Boolean>) {
+            itemView.setOnClickListener { onListItemClickListener.onItemClick(data.first) }
+        }
+
+        override fun onItemSelected() {
+            TODO("Not yet implemented")
+        }
+
+        override fun onItemClear() {
+            TODO("Not yet implemented")
         }
     }
 
-    private fun generateImportantNote() = Data("MArs", "")
+    private fun generateImportantNote() = Pair(Data("MArs", ""), false)
 
     fun appendItem() {
         data.add(generateImportantNote())
@@ -128,6 +174,19 @@ class RecyclerActivityAdapter(
         private const val TYPE_EARTH = 0
         private const val TYPE_MARS = 1
         private const val TYPE_HEADER = 2
+    }
+
+    override fun onItemMove(fromPosition: Int, toPosition: Int) {
+        data.removeAt(fromPosition).apply {
+            data.add(if (toPosition > fromPosition) toPosition - 1
+                else toPosition, this)
+        }
+        notifyItemMoved(fromPosition, toPosition)
+    }
+
+    override fun onItemDismiss(position: Int) {
+        data.removeAt(position)
+        notifyItemRemoved(position)
     }
 }
 
