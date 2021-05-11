@@ -13,6 +13,7 @@
         app:srcCompat="@drawable/bg_earth" />
 
     <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/earthTextView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/Note"
@@ -22,17 +23,19 @@
         app:layout_constraintStart_toEndOf="@+id/earthImageView"
         app:layout_constraintTop_toTopOf="@+id/earthImageView" />
 
-    <androidx.appcompat.widget.AppCompatTextView
-        android:id="@+id/descriptionTextView"
-        android:layout_width="0dp"
+
+    <androidx.appcompat.widget.AppCompatEditText
+        android:id="@+id/earthDescriptionTextView"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/text"
+        android:padding="15dp"
+        android:text="Земля в иллюминаторе"
         android:textColor="#000"
-        android:textSize="15sp"
-        app:layout_constraintBottom_toBottomOf="@+id/earthImageView"
-        app:layout_constraintEnd_toStartOf="@+id/barrier"
-        app:layout_constraintStart_toEndOf="@+id/earthImageView"
-        app:layout_constraintTop_toTopOf="@+id/earthImageView" />
+        android:visibility="gone"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/earthImageView"
+        />
 
     <androidx.appcompat.widget.AppCompatImageView
         android:id="@+id/earth_add_button"
@@ -40,7 +43,7 @@
         android:layout_height="wrap_content"
         android:layout_margin="10dp"
         android:background="@color/colorAccent"
-        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintEnd_toStartOf="@id/earth_dragHandleImageView"
         app:layout_constraintTop_toTopOf="parent"
         app:srcCompat="@drawable/ic_plus_fab" />
 
@@ -49,9 +52,21 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_margin="10dp"
-        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintEnd_toStartOf="@id/earth_dragHandleImageView"
         app:layout_constraintTop_toBottomOf="@id/earth_add_button"
         app:srcCompat="@drawable/ic_archive" />
+
+    <androidx.appcompat.widget.AppCompatImageView
+        android:id="@+id/earth_dragHandleImageView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="15dp"
+        android:padding="10dp"
+        android:tint="@color/cardview_shadow_start_color"
+        app:layout_constraintBottom_toBottomOf="@+id/earthTextView"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/earthTextView"
+        app:srcCompat="@drawable/ic_hamburger_menu_bottom_bar" />
 
 
     <androidx.constraintlayout.widget.Barrier

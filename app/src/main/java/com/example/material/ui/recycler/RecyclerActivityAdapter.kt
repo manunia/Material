@@ -2,8 +2,10 @@ package com.example.material.ui.recycler
 
 import android.graphics.Color
 import android.view.LayoutInflater
+import android.view.MotionEvent
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.view.MotionEventCompat
 import androidx.recyclerview.widget.RecyclerView
 import com.example.material.R
 import kotlinx.android.synthetic.main.activity_recycler_item_earth.view.*
@@ -12,7 +14,8 @@ import kotlinx.android.synthetic.main.activity_recycler_item_mars.view.*
 
 class RecyclerActivityAdapter(
     private var onListItemClickListener: OnListItemClickListener,
-    private var data: MutableList<Pair<Data, Boolean>>
+    private var data: MutableList<Pair<Data, Boolean>>,
+    private val dragListener: OnStartDragListener
 ) :
     RecyclerView.Adapter<BaseViewHolder>(), ItemTouchHelperAdapter {
 
@@ -50,22 +53,63 @@ class RecyclerActivityAdapter(
     inner class EarthViewHolder(view: View) : BaseViewHolder(view) {
         override fun bind(data: Pair<Data, Boolean>) {
             if (layoutPosition != RecyclerView.NO_POSITION) {
-                itemView.descriptionTextView.text = data.first.someDescription
+                //itemView.descriptionTextView.text = data.first.someDescription
                 itemView.earthImageView.setOnClickListener {
                     onListItemClickListener.onItemClick(
                         data.first
                     )
                 }
             }
+
+            itemView.earth_add_button.setOnClickListener {
+                addItem()
+            }
+
+            itemView.earth_remove_button.setOnClickListener {
+                removeItem()
+            }
+
+            itemView.earthDescriptionTextView.visibility = if (data.second) View.VISIBLE else View.GONE
+            itemView.earthTextView.setOnClickListener {
+                toggleText()
+            }
+
+            itemView.earth_dragHandleImageView.setOnTouchListener { _, event ->
+                if (MotionEventCompat.getActionMasked(event) == MotionEvent.ACTION_DOWN) {
+                    dragListener.onStartDrag(this)
+                }
+                false
+            }
+
         }
 
         override fun onItemSelected() {
             itemView.setBackgroundColor(Color.LTGRAY)
+
         }
 
         override fun onItemClear() {
             itemView.setBackgroundColor(0)
         }
+
+        private fun addItem() {
+            data.add(layoutPosition, generateNote())
+            notifyItemInserted(layoutPosition)
+        }
+
+        private fun removeItem() {
+            data.removeAt(layoutPosition)
+            notifyItemRemoved(layoutPosition)
+        }
+
+        private fun toggleText() {
+            data[layoutPosition] = data[layoutPosition].let {
+                it.first to !it.second
+            }
+
+            notifyItemChanged(layoutPosition)
+        }
+
     }
 
     inner class MarsViewHolder(view: View) : BaseViewHolder(view) {
@@ -89,6 +133,14 @@ class RecyclerActivityAdapter(
             itemView.marsTextView.setOnClickListener {
                 toggleText()
             }
+
+            itemView.dragHandleImageView.setOnTouchListener { _, event ->
+                if (MotionEventCompat.getActionMasked(event) == MotionEvent.ACTION_DOWN) {
+                    dragListener.onStartDrag(this)
+                }
+                false
+            }
+
 
         }
 
@@ -126,15 +178,16 @@ class RecyclerActivityAdapter(
         }
 
         override fun onItemSelected() {
-            itemView.setBackgroundColor(0)
+            notifyDataSetChanged()
         }
 
         override fun onItemClear() {
-            itemView.setBackgroundColor(0)
+
         }
     }
 
-    private fun generateImportantNote() = Pair(Data("MArs", ""), false)
+    private fun generateImportantNote() = Pair(Data("Mars", ""), false)
+    private fun generateNote() = Pair(Data("Earth", ""), false)
 
     fun appendItem() {
         data.add(generateImportantNote())
@@ -143,6 +196,10 @@ class RecyclerActivityAdapter(
 
     interface OnListItemClickListener {
         fun onItemClick(data: Data)
+    }
+
+    interface OnStartDragListener {
+        fun onStartDrag(viewHolder: RecyclerView.ViewHolder)
     }
 
     companion object {

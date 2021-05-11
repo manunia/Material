@@ -1,5 +1,6 @@
 package com.example.material.ui.recycler
 
+import android.graphics.Canvas
 import android.os.Bundle
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
@@ -7,6 +8,7 @@ import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.RecyclerView
 import com.example.material.R
 import kotlinx.android.synthetic.main.activity_recycler.*
+import kotlin.math.abs
 
 
 class RecyclerActivity : AppCompatActivity() {
@@ -30,7 +32,12 @@ class RecyclerActivity : AppCompatActivity() {
                     Toast.makeText(this@RecyclerActivity, data.someText, Toast.LENGTH_SHORT).show()
                 }
             },
-            data
+            data,
+            object : RecyclerActivityAdapter.OnStartDragListener {
+                override fun onStartDrag(viewHolder: RecyclerView.ViewHolder) {
+                    itemTouchHelper.startDrag(viewHolder)
+                }
+            }
         )
 
         recyclerView.adapter = adapter
@@ -89,6 +96,28 @@ class ItemTouchHelperCallback(private val adapter: RecyclerActivityAdapter) : It
 
         val itemViewHolder = viewHolder as ItemTouchHelperViewHolder
         itemViewHolder.onItemClear()
+    }
+
+    override fun onChildDraw(
+        c: Canvas,
+        recyclerView: RecyclerView,
+        viewHolder: RecyclerView.ViewHolder,
+        dX: Float,
+        dY: Float,
+        actionState: Int,
+        isCurrentlyActive: Boolean
+    ) {
+        if (actionState == ItemTouchHelper.ACTION_STATE_SWIPE) {
+            val width = viewHolder.itemView.width.toFloat()
+            val alfa = 1.0f - abs(dX)/width
+
+            viewHolder.itemView.alpha = alfa
+            viewHolder.itemView.translationX = dX
+        } else {
+            super.onChildDraw(c, recyclerView, viewHolder, dX, dY, actionState, isCurrentlyActive)
+        }
+
+
     }
 
 }
