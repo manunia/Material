@@ -7,4 +7,8 @@
     <string name="settings">settings</string>
     <string name="search">search</string>
     <string name="view_pager">view pager</string>
+    <string name="Note">note</string>
+    <string name="text">Дополнительный текст</string>
+    <string name="important_note">important note</string>
+    <string name="header">Notes</string>
 </resources>

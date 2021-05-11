@@ -13,4 +13,8 @@ interface PictureOfTheDayApi {
 
     @GET("planetary/apod")
     fun getPictureByDate(@Query("date") date: LocalDate, @Query("api_key") apiKey: String) : Call<PODServerResponseData>
+
+    @GET("planetary/apod")
+    fun getRandomPictures(@Query("count") count: Int, @Query("api_key") apiKey: String) : Call<List<PODServerResponseData>>
+
 }
