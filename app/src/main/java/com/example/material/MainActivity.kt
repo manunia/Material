@@ -14,8 +14,9 @@ class MainActivity : AppCompatActivity() {
     private val MOON = 2
 
     override fun onCreate(savedInstanceState: Bundle?) {
+        //setTheme(R.style.Theme_Material)
         super.onCreate(savedInstanceState)
-        getAppTheme()
+
         setContentView(R.layout.activity_main)
         if (savedInstanceState == null) {
             supportFragmentManager.beginTransaction()
