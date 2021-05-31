@@ -1,13 +1,20 @@
 package com.example.material.ui.apibottom
 
 import android.os.Bundle
+import android.view.ViewGroup
+import android.widget.ImageView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
+import androidx.transition.ChangeBounds
+import androidx.transition.ChangeImageTransform
+import androidx.transition.TransitionManager
+import androidx.transition.TransitionSet
 import com.example.material.R
 import com.example.material.ui.api.EarthFragment
 import com.example.material.ui.api.MarsFragment
 import com.example.material.ui.api.WeatherFragment
 import kotlinx.android.synthetic.main.activity_api_bottom.*
+import kotlinx.android.synthetic.main.fragment_earth.*
 
 class ApiBottomActivity : AppCompatActivity() {
 
@@ -16,7 +23,7 @@ class ApiBottomActivity : AppCompatActivity() {
         setContentView(R.layout.activity_api_bottom)
         bottom_navigation_view.setOnNavigationItemSelectedListener { item ->
             when (item.itemId) {
-                R.id.bottom_view_earth -> {
+                R.id.bottom_view_today -> {
                     replaceFragment(EarthFragment())
                     true
                 }
@@ -34,11 +41,11 @@ class ApiBottomActivity : AppCompatActivity() {
                 }
             }
         }
-        bottom_navigation_view.selectedItemId = R.id.bottom_view_earth
+        bottom_navigation_view.selectedItemId = R.id.bottom_view_today
 
         bottom_navigation_view.setOnNavigationItemReselectedListener { item ->
             when(item.itemId) {
-                R.id.bottom_view_earth -> {
+                R.id.bottom_view_today -> {
 
                 }
                 R.id.bottom_view_mars -> {
@@ -50,10 +57,13 @@ class ApiBottomActivity : AppCompatActivity() {
             }
         }
 
-        bottom_navigation_view.getOrCreateBadge(R.id.bottom_view_earth)
-        val bage = bottom_navigation_view.getBadge(R.id.bottom_view_earth)
+        bottom_navigation_view.getOrCreateBadge(R.id.bottom_view_today)
+        val bage = bottom_navigation_view.getBadge(R.id.bottom_view_today)
         bage?.maxCharacterCount = 2
         bage?.number = 999
+
+
+
 
     }
 
