@@ -3,15 +3,15 @@
     <item
         android:id="@+id/bottom_view_earth"
         android:icon="@drawable/ic_earth"
-        android:title="Earth" />
+        android:title="Позавчера" />
 
     <item
         android:id="@+id/bottom_view_mars"
         android:icon="@drawable/ic_mars"
-        android:title="Mars" />
+        android:title="Вчера" />
 
     <item
         android:id="@+id/bottom_view_weather"
         android:icon="@drawable/ic_system"
-        android:title="Weather" />
+        android:title="Сегодня" />
 </menu>

@@ -20,7 +20,7 @@ import com.example.material.ui.picture.responceData.PODServerResponseData
 import com.google.android.material.bottomappbar.BottomAppBar
 import com.google.android.material.bottomsheet.BottomSheetBehavior
 import kotlinx.android.synthetic.main.bottom_sheet_layout.*
-import kotlinx.android.synthetic.main.main_fragment.*
+import kotlinx.android.synthetic.main.fragment_main_start.*
 import java.time.LocalDate
 
 class PictureOfTheDayFragment : Fragment() {
@@ -36,7 +36,7 @@ class PictureOfTheDayFragment : Fragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        return inflater.inflate(R.layout.main_fragment, container, false)
+        return inflater.inflate(R.layout.fragment_main_start, container, false)
     }
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
